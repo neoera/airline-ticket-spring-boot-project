@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="TICKET")
-class Ticket implements GenericEntity<Long> {
+public class Ticket implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticketSequence")
@@ -26,10 +26,14 @@ class Ticket implements GenericEntity<Long> {
     @JoinColumn(name = "PASSENGER_ID", nullable = false)
     private Passenger passenger;
 
+    @Column(name="NUMBER", unique = true)
+    private Long number;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "ticket")
     private Payment payment;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "ticket")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FLIGHT_ID", nullable = false)
     private Flight flight;
 
     @Column(name="STATUS")

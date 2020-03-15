@@ -23,6 +23,9 @@ public class AirlineCompany implements GenericEntity<Long> {
     @Column(name = "AIRLINE_COMPANY_ID", updatable = false, nullable = false)
     private Long airlineCompanyId;
 
+    @Column(name="AIRLINE_COMPANY_CODE", length=50, nullable=false)
+    private String airlineCode;
+
     @Column(name="NAME", length=50, nullable=false)
     private String name;
 

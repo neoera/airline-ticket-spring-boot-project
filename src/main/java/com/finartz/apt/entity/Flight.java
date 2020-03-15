@@ -7,8 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,7 +17,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="FLIGHT")
-class Flight implements GenericEntity<Long> {
+public class Flight implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flightSequence")
@@ -32,12 +33,11 @@ class Flight implements GenericEntity<Long> {
     @JoinColumn(name = "AIRLINE_COMPANY_ID", nullable = false)
     private AirlineCompany airlineCompany;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TICKET_ID", nullable = false)
-    private Ticket ticket;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flight")
+    private Set<Ticket> tickets;
 
-    @Column(name="NAME", length=50, nullable=false)
-    private String name;
+    @Column(name="FLIGHT_CODE", length=50, nullable=false)
+    private String flightCode;
 
     @Column(name="TOTAL_SEATS")
     private int totalSeats;
@@ -55,10 +55,10 @@ class Flight implements GenericEntity<Long> {
     private LocalTime departureTime;
 
     @Column(name="ARRIVAL_DATE", nullable=false)
-    private LocalDate arrivalDate;
+    private Date arrivalDate;
 
     @Column(name="DEPARTURE_DATE", nullable=false)
-    private LocalDate departureDate;
+    private Date departureDate;
 
     @Column(name="SEAT_PRICE")
     private Double seatPrice;

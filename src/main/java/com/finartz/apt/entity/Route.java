@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="ROUTE")
-class Route implements GenericEntity<Long> {
+public class Route implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "routeSequence")
@@ -26,14 +26,14 @@ class Route implements GenericEntity<Long> {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
     private Set<Flight> flights;
 
-    @Column(name="CODE", length=50, nullable=false)
-    private String code;
+    @Column(name="ROUTE_CODE", length=50, nullable=false)
+    private String routeCode;
 
-    @OneToOne(mappedBy = "originRoute")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORIGIN_AIRPORT_ID", referencedColumnName = "AIRPORT_ID", nullable = false)
     private Airport originAirport;
 
-    @OneToOne(mappedBy = "destinationRoute")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DESTINATION_AIRPORT_ID", referencedColumnName = "AIRPORT_ID", nullable = false)
     private Airport destinationAirport;
 

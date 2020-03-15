@@ -4,6 +4,7 @@ import com.finartz.apt.entity.base.GenericEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -38,4 +39,8 @@ class Passenger implements GenericEntity<Long> {
 
     @Column(name="EMAIL", length=50, nullable=false)
     private String email;
+
+    @Column(name="DATE_OF_BIRTH", length=50, nullable=false)
+    private Date dateOfBirth;
+
 }

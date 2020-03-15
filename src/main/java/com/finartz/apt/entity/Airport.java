@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="AIRPORT")
-class Airport implements GenericEntity<Long> {
+public class Airport implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "airportSequence")
@@ -23,13 +24,12 @@ class Airport implements GenericEntity<Long> {
     @Column(name = "AIRPORT_ID", updatable = false, nullable = false)
     private Long airportId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORIGIN_ROUTE_ID", referencedColumnName = "ROUTE_ID", nullable = false)
-    private Route originRoute;
+    /*@OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROUTE_ID", referencedColumnName = "ROUTE_ID")
+    private List<Route> routes;*/
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DESTINATION_ROUTE_ID", referencedColumnName = "ROUTE_ID", nullable = false)
-    private Route destinationRoute;
+    @Column(name="CODE", length=50, nullable=false)
+    private String code;
 
     @Column(name="NAME", length=50, nullable=false)
     private String name;
