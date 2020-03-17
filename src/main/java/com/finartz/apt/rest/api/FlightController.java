@@ -53,7 +53,6 @@ public class FlightController {
     public ResponseEntity<BaseResponse<PageResult>> search(@RequestBody SearchFlightRequest searchFlightRequest) {
         PageResult searchResultTicketResponse = flightService.searchFlight(searchFlightRequest);
         return ResponseEntity.ok(new BaseResponse<>(searchResultTicketResponse));
-
     }
 
 

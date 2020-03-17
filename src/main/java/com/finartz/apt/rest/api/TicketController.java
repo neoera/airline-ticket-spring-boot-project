@@ -1,5 +1,7 @@
 package com.finartz.apt.rest.api;
 
+import com.finartz.apt.dto.CreateTicketRequestDto;
+import com.finartz.apt.dto.CreateTicketResponseDto;
 import com.finartz.apt.service.TicketService;
 import com.finartz.apt.util.web.BaseResponse;
 import com.finartz.apt.viewobject.*;
@@ -35,22 +37,25 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    /*@RequestMapping(value = "/buy", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = "application/json;encoding=utf-8")
-    public ResponseEntity<BaseResponse<CreateTicketResponse>> buy(@RequestBody CreateTicketRequest createticketRequest) {
-
+    @RequestMapping(value = "/buy", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = "application/json;encoding=utf-8")
+    public ResponseEntity<BaseResponse<CreateTicketResponse>> buy(@RequestBody CreateTicketRequest createTicketRequest) throws Exception {
+        CreateTicketRequestDto createTicketRequestDto = dozerBeanMapper.map(createTicketRequest, CreateTicketRequestDto.class);
+        CreateTicketResponseDto createTicketResponseDto = ticketService.buyTicket(createTicketRequestDto);
+        CreateTicketResponse createRouteResponse = dozerBeanMapper.map(createTicketResponseDto, CreateTicketResponse.class);
+        return ResponseEntity.ok(new BaseResponse<>(createRouteResponse));
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = "application/json;encoding=utf-8")
-    public ResponseEntity<BaseResponse<PageResult>> search(@RequestBody SearchticketRequest searchticketRequest) {
-        PageResult searchResultTicketResponse = TicketService.searchticket(searchticketRequest);
+    public ResponseEntity<BaseResponse<SearchTicketResponse>> search(@RequestBody SearchTicketRequest searchticketRequest) {
+        SearchTicketResponse searchResultTicketResponse = ticketService.searchTicket(searchticketRequest);
         return ResponseEntity.ok(new BaseResponse<>(searchResultTicketResponse));
-
     }
 
     @RequestMapping(value = "/cancel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = "application/json;encoding=utf-8")
-    public ResponseEntity<BaseResponse<PageResult>> cancel(@RequestBody SearchticketRequest searchticketRequest) {
+    public ResponseEntity<BaseResponse<String>> cancel(@RequestBody Long ticketNumber) {
+        String status = ticketService.cancel(ticketNumber);
+        return ResponseEntity.ok(new BaseResponse<>(status));
 
-
-    }*/
+    }
 
 }

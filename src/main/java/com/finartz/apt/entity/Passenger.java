@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="PASSENGER")
-class Passenger implements GenericEntity<Long> {
+public class Passenger implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "passengerSequence")
@@ -24,6 +24,9 @@ class Passenger implements GenericEntity<Long> {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "passenger")
     private Set<Ticket> tickets;
+
+    @Column(name = "IDENTITY_NUMBER", nullable = false)
+    private Long identityNumber;
 
     @Column(name="NAME", length=50, nullable=false)
     private String name;

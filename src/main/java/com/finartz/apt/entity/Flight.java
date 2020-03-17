@@ -40,10 +40,10 @@ public class Flight implements GenericEntity<Long> {
     private String flightCode;
 
     @Column(name="TOTAL_SEATS")
-    private int totalSeats;
+    private Integer totalSeats;
 
     @Column(name="AVAILABLE_SEATS")
-    private int availableSeats;
+    private Integer availableSeats;
 
     @Column(name="DURATION")
     private String duration;

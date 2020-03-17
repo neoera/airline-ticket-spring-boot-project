@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="PAYMENT")
-class Payment implements GenericEntity<Long> {
+public class Payment implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "paymentSequence")
@@ -31,6 +31,6 @@ class Payment implements GenericEntity<Long> {
     private Date date;
 
     @Column(name="AMOUNT")
-    private int amount;
+    private Double amount;
 
 }

@@ -1,12 +1,12 @@
 package com.finartz.apt.service;
 
+import com.finartz.apt.dto.CreateFlightRequestDto;
+import com.finartz.apt.dto.CreateFlightResponseDto;
 import com.finartz.apt.entity.AirlineCompany;
 import com.finartz.apt.entity.Flight;
 import com.finartz.apt.entity.Route;
 import com.finartz.apt.repository.AirlineCompanyRepository;
 import com.finartz.apt.repository.FlightRepository;
-import com.finartz.apt.dto.CreateFlightRequestDto;
-import com.finartz.apt.dto.CreateFlightResponseDto;
 import com.finartz.apt.repository.RouteRepository;
 import com.finartz.apt.viewobject.SearchFlightRequest;
 import com.finartz.apt.viewobject.SearchFlightResponse;
@@ -72,7 +72,8 @@ public class FlightService {
 
     public SearchFlightResponse searchFlight(SearchFlightRequest searchFlightRequest) {
         Pageable pageable = PageRequest.of(searchFlightRequest.getPage(), searchFlightRequest.getSize());
-        Page<Flight> flights = flightRepository.findByFlightCode(searchFlightRequest.getFlightCode(), pageable);
+        AirlineCompany airlineCompany = airlineCompanyRepository.findByAirlineCode(searchFlightRequest.getAirlineCompanyCode());
+        Page<Flight> flights = flightRepository.findAllByAirlineCompany(airlineCompany, pageable);
 
         SearchFlightResponse searchFlightResponse = new SearchFlightResponse();
         List<SearchFlightResponse.FlightSummary> flightSummaryList = new ArrayList<>();
