@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class GitSampleDto {
-    private int sampleId;
+    private double sampleId;
 }
